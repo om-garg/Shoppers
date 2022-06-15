@@ -15,30 +15,31 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   final cartItems = ["1", "2", "3", "4"];
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ListView.builder(
+    return Column(
+      children: [
+        Expanded(
+          flex: 7,
+          child: ListView.builder(
             scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              // physics: const BounceScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 30),
               itemCount: cartItems.length,
               itemBuilder: (context, index){
-              return ListCard();
+              return const ListCard();
               }
           ),
-          priceFooter(),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-            child: CustomButton(
-              text: "CHECKOUT",
-              onPress: (){},
-              loading: false,
-            ),
-          )
-        ],
-      ),
+        ),
+        priceFooter(),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          child: CustomButton(
+            text: "CHECKOUT",
+            onPress: (){},
+            loading: false,
+          ),
+        )
+      ],
     );
   }
   priceFooter() {

@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductController>(builder: (context, value, child) {
-      print(value.products.length);
       return GridView.builder(
           itemCount: value.products.length,
           padding: const EdgeInsets.symmetric(vertical: 30),
