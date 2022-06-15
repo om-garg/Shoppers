@@ -5,7 +5,20 @@ import 'package:shoppers/components/widgets/custom_button.dart';
 import '../../utils/theme/custom_theme.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+  final String price;
+  final String title;
+  final String imageUrl;
+  final String desc;
+
+
+  const ProductScreen({
+    Key? key,
+    required this.title,
+    required this.price,
+    required this.imageUrl,
+    required this.desc,
+
+  }) : super(key: key);
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -40,20 +53,20 @@ class _ProductScreenState extends State<ProductScreen> {
                         height: 400,
                         width: double.infinity,
                         child: CachedNetworkImage(
-                          imageUrl: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80",
+                          imageUrl: widget.imageUrl,
                           fit: BoxFit.cover,
                         ),
                       ),
                       Positioned(
-                        top: 35,
+                        top: 10,
                         right: 35,
                         child: Container(
                           decoration: const ShapeDecoration(
                               color: CustomTheme.YELLOW,
                               shape: CircleBorder(),
-                              shadows: [
-                                BoxShadow(color: CustomTheme.GREY, blurRadius: 3, spreadRadius: 4, offset: Offset(1, 3))
-                              ]
+                              // shadows: [
+                              //   BoxShadow(color: CustomTheme.GREY, blurRadius: 3, spreadRadius: 4, offset: Offset(1, 3))
+                              // ]
                           ),
                           child: IconButton(
                             icon: const Icon(Icons.share),
@@ -70,8 +83,8 @@ class _ProductScreenState extends State<ProductScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(top: 22.0),
-                                child: Text('title'),
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: Center(child: Text(widget.title)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -93,14 +106,14 @@ class _ProductScreenState extends State<ProductScreen> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(top: 22.0),
-                            child: Text('title'),
+                            child: Text(widget.title),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 20.0),
                             child: Row(
                               children: [
-                                Text('MRP :'),
-                                Text("\$ price"),
+                                const Text('MRP :'),
+                                Text("\$ ${widget.price}"),
                               ],
                             ),
                           ),
@@ -110,18 +123,18 @@ class _ProductScreenState extends State<ProductScreen> {
                               text: "Add to Cart",
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            padding: const EdgeInsets.only(top: 20.0, bottom: 10),
                             child: Text(
                               "About the Items",
                               style: Theme.of(context).textTheme.headlineMedium,
                             )
                           ),
-                          Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20.0),
-                              child: Text(
-                                "The item description",
-                                style: Theme.of(context).textTheme.bodySmall,
-                              )
+                          Text(
+                            widget.desc,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                         ],
                       ),
@@ -132,15 +145,15 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
             ),
             Positioned(
-              top: 35,
+              top: 10,
               left: 30,
               child: Container(
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    boxShadow: [
-                      BoxShadow(color: CustomTheme.GREY, blurRadius: 3, spreadRadius: 4, offset: Offset(1, 3))
-                    ]
+                    // boxShadow: [
+                    //   BoxShadow(color: CustomTheme.GREY, blurRadius, spreadRadius: 1, offset: Offset(1, 3))
+                    // ]
                 ),
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back),

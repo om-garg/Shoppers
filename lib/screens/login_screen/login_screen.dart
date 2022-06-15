@@ -9,7 +9,7 @@ import 'package:shoppers/utils/data/login_data.dart';
 import 'package:shoppers/utils/theme/custom_theme.dart';
 
 import '../../components/widgets/login_screen/CustomTextField.dart';
-import '../../utils/services/auth_controller.dart';
+import '../../controller/auth_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _loadingButton = true;
     });
 
-    LoginState loginState = Provider.of<LoginState>(context, listen: false);
+    AuthController loginState = Provider.of<AuthController>(context, listen: false);
     if(mapEquals(data, LoginData.signIn)) {
       loginState.signIn(_emailController.text, _passwordController.text, loginError);
     } else {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/widgets/custom_button.dart';
-import '../../utils/services/auth_controller.dart';
+import '../../controller/auth_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         _loadingButton = true;
       });
-      Provider.of<LoginState>(context, listen: false).signOut();
+      Provider.of<AuthController>(context, listen: false).signOut();
     }
 
     return Padding(

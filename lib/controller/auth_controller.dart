@@ -1,19 +1,17 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum ApplicationLoginState { loggedOut, loggedIn }
 
-class LoginState extends ChangeNotifier {
+class AuthController extends ChangeNotifier {
   User? user;
 
   ApplicationLoginState loginState = ApplicationLoginState.loggedOut;
 
-  LoginState(){
+  AuthController(){
     init();
   }
 
@@ -37,9 +35,7 @@ class LoginState extends ChangeNotifier {
       errorCallBack(e);
     } catch(e, s) {
       log(e.toString(), name: "SignUp Method");
-      if (kDebugMode) {
-        print(s);
-      }
+      print(s);
     }
   }
 
@@ -60,9 +56,7 @@ class LoginState extends ChangeNotifier {
       errorCallBack(e);
     } catch(e, s) {
       log(e.toString(), name: "SignUp Method");
-      if (kDebugMode) {
-        print(s);
-      }
+      print(s);
     }
   }
 

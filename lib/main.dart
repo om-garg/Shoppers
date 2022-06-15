@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
+import 'package:shoppers/controller/auth_controller.dart';
+import 'package:shoppers/controller/data_controller.dart';
+import 'package:shoppers/controller/product_controller.dart';
 import 'package:shoppers/firebase_options.dart';
 import 'package:shoppers/screens/checkout_screen/checkout_screen.dart';
 import 'package:shoppers/screens/home_screen/home_screen.dart';
 import 'package:shoppers/screens/login_screen/login_screen.dart';
 import 'package:shoppers/screens/profile_screen/profile_screen.dart';
-import 'package:shoppers/utils/services/auth_controller.dart';
 import 'package:shoppers/utils/theme/custom_theme.dart';
 
 Future<void> main() async {
@@ -28,9 +30,13 @@ Future<void> main() async {
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => LoginState(),
-      builder: (context, _) => Consumer<LoginState>(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthController()),
+        ChangeNotifierProvider(create: (context) => DataController()),
+        ChangeNotifierProvider(create: (context) => ProductController()),
+      ],
+      builder: (context, _) => Consumer<AuthController>(
         builder: (context, value, _) {
           Widget child;
           switch (value.loginState) {
@@ -53,6 +59,7 @@ Future<void> main() async {
     ),
   );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

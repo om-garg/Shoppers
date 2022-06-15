@@ -5,10 +5,17 @@ import 'package:shoppers/utils/theme/custom_theme.dart';
 class GridCard extends StatelessWidget {
   final int index;
   final VoidCallback onPress;
+  final String price;
+  final String title;
+  final String imageUrl;
+
   const GridCard({
   Key? key,
   required this.index,
     required this.onPress,
+    required this.title,
+    required this.price,
+    required this.imageUrl,
   }) : super(key: key);
 
   @override
@@ -27,7 +34,7 @@ class GridCard extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                     child: CachedNetworkImage(
-imageUrl: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80",
+imageUrl: imageUrl,
                       fit: BoxFit.cover,
                     ),
                 ),
@@ -40,12 +47,12 @@ imageUrl: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Text(
-                          'title',
+                          title,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),
                       Text(
-                        'Price',
+                        price,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],
