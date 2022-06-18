@@ -52,7 +52,7 @@ imageUrl: imageUrl,
                         ),
                       ),
                       Text(
-                        price,
+                        '\$ $price',
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],

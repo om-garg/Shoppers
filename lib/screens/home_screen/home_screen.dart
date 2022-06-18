@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final data = ["1", "2", "3", "4"];
 
   @override
   void initState() {
@@ -48,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               desc: value.products[index].description,
                               imageUrl: value.products[index].imgUrl,
                               title: value.products[index].title,
+                          productId: value.products[index].productId,
                             )));
               },
               price: value.products[index].price.toString(),

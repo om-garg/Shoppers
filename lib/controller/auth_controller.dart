@@ -43,15 +43,20 @@ class AuthController extends ChangeNotifier {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
 
-      DocumentReference<Map<String, dynamic>> response = await FirebaseFirestore.instance.collection('userList').add({
+      DocumentReference<Map<String, dynamic>> response1 = await FirebaseFirestore.instance.collection('userList').add({
         "user_id" : userCredential.user!.uid,
         "email" : email,
-        "password" : password
+        "password" : password,
+        "cartItems" : "",
       });
 
-      log(response.id.toString(), name: "Add user to firebase");
+      FirebaseFirestore.instance.collection('userList').doc(response1.id).set({
+        "user_id" : response1.id,
+        "email" : email,
+        "password" : password,
+        "cartItems" : "",
+      });
 
-      // Stripe user create
     } on FirebaseAuthException catch(e) {
       errorCallBack(e);
     } catch(e, s) {

@@ -45,6 +45,7 @@ Future<void> main() async {
               break;
             case ApplicationLoginState.loggedIn:
               child = const MyApp();
+              Provider.of<DataController>(context).getUserData();
               break;
             default:
               child = const LoginScreen();

@@ -4,7 +4,16 @@ import 'package:flutter/material.dart';
 import '../../../utils/theme/custom_theme.dart';
 
 class ListCard extends StatelessWidget {
-  const ListCard({Key? key}) : super(key: key);
+  final String title;
+  final String price;
+  final String imgUrl;
+
+  const ListCard({
+    Key? key,
+    required this.title,
+    required this.price,
+    required this.imgUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +31,7 @@ class ListCard extends StatelessWidget {
                 child: SizedBox(
                   height: double.infinity,
                   child: CachedNetworkImage(
-                    imageUrl: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80",
+                    imageUrl: imgUrl,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -38,7 +47,7 @@ class ListCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Text(
-                          'Title',
+                          title,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),
@@ -52,7 +61,7 @@ class ListCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Text(
-                          '\$ price',
+                          '\$ $price',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shoppers/components/widgets/custom_button.dart';
 
+import '../../controller/data_controller.dart';
 import '../../utils/theme/custom_theme.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -9,6 +11,7 @@ class ProductScreen extends StatefulWidget {
   final String title;
   final String imageUrl;
   final String desc;
+  final String productId;
 
 
   const ProductScreen({
@@ -17,7 +20,7 @@ class ProductScreen extends StatefulWidget {
     required this.price,
     required this.imageUrl,
     required this.desc,
-
+    required this.productId,
   }) : super(key: key);
 
   @override
@@ -27,11 +30,12 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   bool addButtonLoad = false;
 
-  void onAddToCart() async {
+  void onAddToCart(BuildContext context) async {
     setState(() {
       addButtonLoad = true;
     });
 
+    Provider.of<DataController>(context,listen: false).addToCart(widget.productId);
     // Add to cart
     setState(() {
       addButtonLoad = false;
@@ -118,7 +122,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ),
                           CustomButton(
-                              onPress: onAddToCart,
+                              onPress: () => onAddToCart(context),
                               loading: addButtonLoad,
                               text: "Add to Cart",
                           ),
