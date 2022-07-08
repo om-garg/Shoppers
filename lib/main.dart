@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:shoppers/controller/auth_controller.dart';
 import 'package:shoppers/controller/data_controller.dart';
+import 'package:shoppers/controller/payment_controller.dart';
 import 'package:shoppers/controller/product_controller.dart';
 import 'package:shoppers/firebase_options.dart';
 import 'package:shoppers/model/utils/theme/custom_theme.dart';
@@ -15,6 +15,8 @@ import 'package:shoppers/view/screens/home_screen/home_screen.dart';
 import 'package:shoppers/view/screens/login_screen/login_screen.dart';
 import 'package:shoppers/view/screens/profile_screen/profile_screen.dart';
 
+final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
+
 Future<void> main() async {
   // Firebase Setup
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,11 +24,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Stripe Setup
-  final String response =
-      await rootBundle.loadString("assets/config/stripe.json");
-  final data = await json.decode(response);
-  Stripe.publishableKey = data['publishableKey'];
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
@@ -35,6 +32,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => AuthController()),
         ChangeNotifierProvider(create: (context) => DataController()),
         ChangeNotifierProvider(create: (context) => ProductController()),
+        ChangeNotifierProvider(create: (context) => PaymentController()),
       ],
       builder: (context, _) => Consumer<AuthController>(
         builder: (context, value, _) {
@@ -54,6 +52,7 @@ Future<void> main() async {
             debugShowCheckedModeBanner: false,
             theme: CustomTheme.getTheme(),
             home: child,
+            navigatorKey: navigationKey,
           );
         },
       ),

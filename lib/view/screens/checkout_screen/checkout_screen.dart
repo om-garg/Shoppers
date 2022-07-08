@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoppers/controller/data_controller.dart';
+import 'package:shoppers/controller/payment_controller.dart';
 import 'package:shoppers/controller/product_controller.dart';
 import 'package:shoppers/model/utils/theme/custom_theme.dart';
 import 'package:shoppers/view/widgets/checkout_screen/list_card.dart';
@@ -15,7 +16,12 @@ class CheckOutScreen extends StatelessWidget {
     //     .read<ProductController>()
     //     .getCartItems(context.watch<DataController>().userData?.cartProductIds);
 
+
     final List cartItems = context.watch<ProductController>().cartProducts;
+
+    void dispatchPayment(String? email, int amount) {
+      context.read<PaymentController>().dispatchPayment(amount, email!);
+    }
 
     return Column(
       children: [
@@ -74,15 +80,11 @@ class CheckOutScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: CustomButton(
             text: "CHECKOUT",
-            onPress: () {},
+            onPress: () => dispatchPayment(context.read<DataController>().userData?.email, context.read<ProductController>().totalPrice),
             loading: false,
           ),
         )
       ],
     );
   }
-  // priceFooter(int totalPrice) {
-  //   print(totalPrice);
-  //   return
-  // }
 }
