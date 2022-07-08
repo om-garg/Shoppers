@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shoppers/model/utils/theme/custom_theme.dart';
 
-import '../../../utils/theme/custom_theme.dart';
 
 class ListCard extends StatelessWidget {
   final String title;

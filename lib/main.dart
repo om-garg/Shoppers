@@ -9,11 +9,11 @@ import 'package:shoppers/controller/auth_controller.dart';
 import 'package:shoppers/controller/data_controller.dart';
 import 'package:shoppers/controller/product_controller.dart';
 import 'package:shoppers/firebase_options.dart';
-import 'package:shoppers/screens/checkout_screen/checkout_screen.dart';
-import 'package:shoppers/screens/home_screen/home_screen.dart';
-import 'package:shoppers/screens/login_screen/login_screen.dart';
-import 'package:shoppers/screens/profile_screen/profile_screen.dart';
-import 'package:shoppers/utils/theme/custom_theme.dart';
+import 'package:shoppers/model/utils/theme/custom_theme.dart';
+import 'package:shoppers/view/screens/checkout_screen/checkout_screen.dart';
+import 'package:shoppers/view/screens/home_screen/home_screen.dart';
+import 'package:shoppers/view/screens/login_screen/login_screen.dart';
+import 'package:shoppers/view/screens/profile_screen/profile_screen.dart';
 
 Future<void> main() async {
   // Firebase Setup

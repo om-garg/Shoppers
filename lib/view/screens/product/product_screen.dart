@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shoppers/components/widgets/custom_button.dart';
-
-import '../../controller/data_controller.dart';
-import '../../utils/theme/custom_theme.dart';
+import 'package:shoppers/controller/data_controller.dart';
+import 'package:shoppers/controller/product_controller.dart';
+import 'package:shoppers/model/utils/theme/custom_theme.dart';
+import 'package:shoppers/view/widgets/custom_button.dart';
 
 class ProductScreen extends StatefulWidget {
   final String price;
@@ -36,11 +38,27 @@ class _ProductScreenState extends State<ProductScreen> {
     });
 
     Provider.of<DataController>(context,listen: false).addToCart(widget.productId);
+    Provider.of<ProductController>(context,listen: false).getCartItems(context.read<DataController>().userData?.cartProductIds);
     // Add to cart
     setState(() {
       addButtonLoad = false;
     });
   }
+
+  void onRemoveFromCart(BuildContext context) async {
+    setState(() {
+      addButtonLoad = true;
+    });
+
+    Provider.of<DataController>(context,listen: false).removeFromCart(widget.productId);
+    Provider.of<ProductController>(context,listen: false).getCartItems(context.read<DataController>().userData?.cartProductIds);
+    // Add to cart
+    setState(() {
+      addButtonLoad = false;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,26 +97,6 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: DefaultTextStyle(
-                          style: Theme.of(context).textTheme.headlineLarge!,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 15.0),
-                                child: Center(child: Text(widget.title)),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                                child: Row(),
-                              )
-                            ],
-                          ),
-
-                        ),
-                      )
                     ],
                   ),
                   Padding(
@@ -121,10 +119,15 @@ class _ProductScreenState extends State<ProductScreen> {
                               ],
                             ),
                           ),
-                          CustomButton(
-                              onPress: () => onAddToCart(context),
-                              loading: addButtonLoad,
-                              text: "Add to Cart",
+                          Consumer<ProductController>(
+                            builder: (context, data, _) {
+                              bool present = data.productPresentInCart(widget.productId);
+                              return CustomButton(
+                                  onPress: () => present ? onRemoveFromCart(context) : onAddToCart(context),
+                                  loading: addButtonLoad,
+                                  text: present ? "Remove from Cart" :"Add to Cart",
+                              );
+                            }
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 20.0, bottom: 10),

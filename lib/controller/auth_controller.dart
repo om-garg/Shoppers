@@ -44,6 +44,7 @@ class AuthController extends ChangeNotifier {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
 
       DocumentReference<Map<String, dynamic>> response1 = await FirebaseFirestore.instance.collection('userList').add({
+        "user_auth_id" : userCredential.user!.uid,
         "user_id" : userCredential.user!.uid,
         "email" : email,
         "password" : password,
@@ -51,6 +52,7 @@ class AuthController extends ChangeNotifier {
       });
 
       FirebaseFirestore.instance.collection('userList').doc(response1.id).set({
+        "user_auth_id" : userCredential.user!.uid,
         "user_id" : response1.id,
         "email" : email,
         "password" : password,

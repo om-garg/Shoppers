@@ -4,12 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shoppers/components/widgets/custom_button.dart';
-import 'package:shoppers/utils/data/login_data.dart';
-import 'package:shoppers/utils/theme/custom_theme.dart';
-
-import '../../components/widgets/login_screen/CustomTextField.dart';
-import '../../controller/auth_controller.dart';
+import 'package:shoppers/controller/auth_controller.dart';
+import 'package:shoppers/model/utils/data/login_data.dart';
+import 'package:shoppers/model/utils/theme/custom_theme.dart';
+import 'package:shoppers/view/widgets/custom_button.dart';
+import 'package:shoppers/view/widgets/login_screen/CustomTextField.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

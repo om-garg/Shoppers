@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoppers/utils/theme/custom_theme.dart';
+import 'package:shoppers/model/utils/theme/custom_theme.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;

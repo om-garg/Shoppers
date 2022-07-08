@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoppers/controller/data_controller.dart';
 import 'package:shoppers/controller/product_controller.dart';
-import 'package:shoppers/models/product.dart';
-import 'package:shoppers/screens/product/product_screen.dart';
-
-import '../../components/widgets/home_screen/grid_card.dart';
+import 'package:shoppers/view/screens/product/product_screen.dart';
+import 'package:shoppers/view/widgets/home_screen/grid_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> init() async {
     await Provider.of<ProductController>(context, listen: false)
         .fetchProducts();
+    Provider.of<ProductController>(context,listen: false).getCartItems(context.read<DataController>().userData?.cartProductIds);
   }
 
   @override

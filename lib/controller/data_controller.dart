@@ -2,8 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shoppers/models/product.dart';
-import 'package:shoppers/models/user.dart';
+import 'package:shoppers/model/models/user.dart';
 import 'auth_controller.dart';
 
 class DataController extends ChangeNotifier {
@@ -19,8 +18,12 @@ class DataController extends ChangeNotifier {
     try {
       var response = await firebaseInstance
           .collection("userList")
-          .where("user_id", isEqualTo: authController.user?.uid)
+          .where("user_auth_id", isEqualTo: authController.user?.uid)
           .get();
+
+      log(authController.user?.uid ?? "Heelo");
+
+      log(response.docs.toString());
 
       if (response.docs.isNotEmpty) {
         UserData userData = UserData(
@@ -31,6 +34,9 @@ class DataController extends ChangeNotifier {
                 : [],
             userId: response.docs[0]["user_id"]);
         _userData = userData;
+
+        log(response.docs[0]["email"]);
+        log(response.docs[0]["cartItems"]);
       }
     } catch (e) {
       log(e.toString(), name: "Get User Data Error");
@@ -52,5 +58,24 @@ class DataController extends ChangeNotifier {
     } catch (e) {
       log(e.toString(), name: "Add to Cart Error");
     }
+
+  }
+
+  Future<void> removeFromCart(String productId) async {
+    _userData?.cartProductIds.remove(productId);
+
+    try {
+      await firebaseInstance
+          .collection('userList')
+          .doc(_userData?.userId)
+          .update({
+        "cartItems": _userData?.cartProductIds.length == 1 ? productId : _userData?.cartProductIds.join(",")
+      });
+
+      print(_userData?.cartProductIds.length);
+    } catch (e) {
+      log(e.toString(), name: "Add to Cart Error");
+    }
+
   }
 }

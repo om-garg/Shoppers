@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:shoppers/models/product.dart';
+import 'package:shoppers/model/models/product.dart';
 
 class ProductController extends ChangeNotifier {
   final firebaseInstance = FirebaseFirestore.instance;
@@ -63,5 +62,14 @@ class ProductController extends ChangeNotifier {
         }
       }
     }
+  }
+
+  bool productPresentInCart(String productId){
+    for(var product in _cartProducts) {
+      if(productId == product.productId){
+        return true;
+      }
+    }
+    return false;
   }
 }
